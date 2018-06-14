@@ -10,7 +10,7 @@ describe('with simple values', () => {
   })
 
   test('uses the first values as the default', () => {
-    expect(ui.currentState.name).toBe('a')
+    expect(ui.current()).toBe('a')
   })
 
   test('error when no states passed', () => {
@@ -18,17 +18,17 @@ describe('with simple values', () => {
   })
 
   test('has to___() transitions helpers', () => {
-    expect(ui.toA).not.toBeDefined()
+    expect(ui.toA).toBeInstanceOf(Function)
     expect(ui.toB).toBeInstanceOf(Function)
     expect(ui.toC).toBeInstanceOf(Function)
   })
 
   test('transitions to another state', () => {
-    expect(ui.currentState.name).toBe('a')
+    expect(ui.current()).toBe('a')
 
     ui = ui.toB()
 
-    expect(ui.currentState.name).toBe('b')
+    expect(ui.current()).toBe('b')
   })
 
   test('transitioned object as different transitions helpers', () => {
@@ -36,7 +36,7 @@ describe('with simple values', () => {
 
     expect(ui.toA).toBeInstanceOf(Function)
     expect(ui.toB).toBeInstanceOf(Function)
-    expect(ui.toC).not.toBeDefined()
+    expect(ui.toC).toBeInstanceOf(Function)
   })
 
   test('is immutable', () => {
@@ -96,7 +96,7 @@ describe('state with enclosed data', () => {
   let ui
 
   beforeEach(() => {
-    ui = PossibleStates('a', 'b<example>')
+    ui = PossibleStates('a', 'b<example>', 'c')
   })
 
   test('has to___() helper function for container types', () => {
@@ -117,9 +117,28 @@ describe('state with enclosed data', () => {
     expect(() => ui.toB()).toThrow(Error)
   })
 
-  // when
-  // caseOf
+  test('when has arguments in its callback', () => {
+    ui.toB('so long!').whenB(args => {
+      expect(args).toEqual({example: 'so long!'})
+    })
+  })
 
-  // multiple enclosed data
-  // invalid type definition?
+  test('caseOf has arguments in its callback', () => {
+    ui.toB('so long!').caseOf({
+      b: args => expect(args).toEqual({example: 'so long!'}),
+      _: () => {},
+    })
+  })
+})
+
+describe('type with multiple data in it', () => {
+  test('a state that holds multiple pieces data', () => {
+    const ui = PossibleStates('a', 'b<first, second>').toB('foo', 'bar')
+
+    expect(ui.data()).toEqual({first: 'foo', second: 'bar'})
+  })
+
+  test('invalid number of args when multiple needed', () => {
+    expect(() => PossibleStates('a', 'b<first, second>').toB('foo')).toThrow(Error)
+  })
 })
