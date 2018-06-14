@@ -7,6 +7,7 @@
 - immutable
 - when
 - caseOf
+- state which contains stuff
 
 ## Goal
 
