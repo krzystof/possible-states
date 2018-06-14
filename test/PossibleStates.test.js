@@ -107,16 +107,16 @@ describe('state with enclosed data', () => {
     expect(() => PossibleStates('a<no>')).toThrow(Error)
   })
 
-  test.skip('transition to a state that holds data', () => {
+  test('transition to a state that holds data', () => {
     ui = ui.toB('some piece of data')
 
-    ui.whenB(data => {
-      expect(data).toEqual({example: 'sme piece of data'})
-    })
+    expect(ui.data()).toEqual({example: 'some piece of data'})
   })
 
-  // transition
-  // transition without required number of args
+  test('transition with wrong number of args throws an error', () => {
+    expect(() => ui.toB()).toThrow(Error)
+  })
+
   // when
   // caseOf
 
