@@ -10,7 +10,7 @@ describe('with simple values', () => {
   })
 
   test('uses the first values as the default', () => {
-    expect(ui.currentState).toBe('a')
+    expect(ui.currentState.name).toBe('a')
   })
 
   test('error when no states passed', () => {
@@ -24,11 +24,11 @@ describe('with simple values', () => {
   })
 
   test('transitions to another state', () => {
-    expect(ui.currentState).toBe('a')
+    expect(ui.currentState.name).toBe('a')
 
     ui = ui.toB()
 
-    expect(ui.currentState).toBe('b')
+    expect(ui.currentState.name).toBe('b')
   })
 
   test('transitioned object as different transitions helpers', () => {
@@ -99,7 +99,7 @@ describe('state with enclosed data', () => {
     ui = PossibleStates('a', 'b<example>')
   })
 
-  test.skip('has to___() helper function for container types', () => {
+  test('has to___() helper function for container types', () => {
     expect(ui.toB).toBeInstanceOf(Function)
   })
 
@@ -111,9 +111,10 @@ describe('state with enclosed data', () => {
     ui = ui.toB('some piece of data')
 
     ui.whenB(data => {
-      expect(data).toEqual({example: 'some piece of data'})
+      expect(data).toEqual({example: 'sme piece of data'})
     })
   })
+
   // transition
   // transition without required number of args
   // when
