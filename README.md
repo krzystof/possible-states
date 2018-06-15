@@ -6,7 +6,8 @@
 
 
 ## Todos
-- add a vuejs wrapper
+- the order matters in the vuejs caseof fallback
+- only renders the first child on the vuejs when component
 
 
 ## Goal
@@ -115,6 +116,8 @@ this.ui.whenSuccess(({status}) => (
 
 For more checks and control, use the **caseOf** function.
 
+**That's how it could look like in React**.
+
 ```js
 const users = PossibleStates('waiting', 'loading', 'success', 'failure')
 
@@ -146,14 +149,22 @@ Use the `name<data1, data2>` syntax for that.
 - The data must be passed as arguments when transitioning to that state (or an error is thrown)
 - The data will be passed as an argument to the callbacks used in `when` and `caseOf`
 
-```js
-// defining the initial UI state
-state = {
-  ui: PossibleStates('wait', 'ok<result>', 'error<reason>')
-}
+**Again, in React**, it looks like this.
 
-// updating the UI state
-this.setState(({ ui }) => ({ ui: ui.toOk({result: 'goes here'}) }))
+:exclamation: note that you need to use the functional form of setState,
+because state updates may be asynchronous and we need the value of the
+state.
+
+```js
+// define the initial UI state
+this.state.ui = PossibleStates('wait', 'ok<result>', 'error<reason>')
+
+// then whenever needed, use transition. Use the function form of setState.
+this.setState(state => ({ui: state.ui.toOk({result: 'goes here'})})
+
+// update the UI state
+this.setState(state => ({ ui: state.ui.toOk({result: 'goes here'}) }))
+this.state.ui = this.state.ui.toOk({result: 'goes here'})
 
 this.state.ui.whenOk((data) => (
   <div>
@@ -164,10 +175,74 @@ this.state.ui.whenOk((data) => (
 // or
 
 this.state.ui.caseOf({
-  ok: data => <div>data.whatever</div>  // <-- only the ok clause will receive the data as an argument
+  ok: data => <div>data.result</div>  // <-- only the ok clause will receive the data as an argument
   _ : () => <div>nothing</div>
 })
 ```
+
+
+**If you are into Vue**, you can use 2 components to achieve the same result in templates.
+
+```js
+import {When, CaseOf} from '../lib'
+```
+
+**<When/>**
+
+```vue
+<template>
+  <div>
+    <When :state="ui" of="error">
+      <div>Uh oh! Something when wrong!</div>
+    </When>
+  </div>
+</template>
+```
+
+If the given state as data, use a scoped slot. If `error` is defined as `error<message>`:
+
+```vue
+<template>
+  <div>
+    <When :state="ui" of="error">
+      <div slot-scope="props">Uh oh! {{props.message}}</div>
+    </When>
+  </div>
+</template>
+```
+
+**<CaseOf/>**
+
+Use **named slot** named after the state they are matching.
+
+```vue
+<template>
+  <div>
+    <CaseOf :ui="ui">
+      <div slot="yes">yeah</div>
+      <div slot="no">nope</div>
+    </CaseOf>
+  </div>
+</template>
+```
+
+Fallback with the default slot.
+
+:exclamation: note that at the moment, the default needs to be defined as the first child.
+
+Pass data using **scoped slots**. If we had `yes<yeah>`:
+
+```vue
+<template>
+  <div>
+    <CaseOf :ui="ui">
+      <div slot="yes" slot-scope="props">{{ props.yeah }}</div>
+      <div slot="no">nope</div>
+    </CaseOf>
+  </div>
+</template>
+```
+
 
 ## Contributing
 

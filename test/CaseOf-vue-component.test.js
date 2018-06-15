@@ -49,4 +49,27 @@ describe('<CaseOf/>', () => {
 
     expect(wrapper.html()).toContain('holy moly')
   })
+
+  test.only('fall backs to the default slot', () => {
+    const wrapper = mount({
+      template: `
+        <div>
+          <CaseOf :ui="ui">
+            <div>fallback here</div>
+            <div slot="no">nope</div>
+          </CaseOf>
+        </div>
+      `,
+      components: {
+        CaseOf
+      },
+      data() {
+        return {
+          ui: PossibleStates('no', 'yes<text>').toYes('holy moly')
+        }
+      }
+    })
+
+    expect(wrapper.html()).toContain('fallback here')
+  })
 })
