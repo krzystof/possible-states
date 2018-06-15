@@ -147,9 +147,13 @@ Use the `name<data1, data2>` syntax for that.
 - The data will be passed as an argument to the callbacks used in `when` and `caseOf`
 
 ```js
-this.state.ui = PossibleStates('wait', 'ok<result>', 'error<reason>')
+// defining the initial UI state
+state = {
+  ui: PossibleStates('wait', 'ok<result>', 'error<reason>')
+}
 
-this.state.ui = this.state.ui.toOk({whatever: 'goes here'})
+// updating the UI state
+this.setState(({ ui }) => ({ ui: ui.toOk({whatever: 'goes here'}) }))
 
 this.state.ui.whenOk((data) => (
   <div>
