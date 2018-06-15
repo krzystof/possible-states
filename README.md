@@ -100,7 +100,7 @@ Use it to clean up if-else statements that are getting out of hand:
 
 {this.loaded && !this.state.errors ? (
   <p>
-    Status: this.resp nse.status
+    Status: this.response.status
   </p>
 ) : null}
 

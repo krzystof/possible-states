@@ -11,3 +11,4 @@ install:
 script:
   - yarn test --ci
   - yarn lint
+  - yarn build

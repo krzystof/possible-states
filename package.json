@@ -2,8 +2,9 @@
   "name": "possible-states",
   "version": "1.0.0",
   "description": "A cleaner way to manage states in user interfaces",
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "scripts": {
+    "build": "yarn babel lib --out-dir dist",
     "test": "yarn jest",
     "lint": "yarn eslint lib/ test/"
   },
@@ -18,6 +19,8 @@
   },
   "homepage": "https://github.com/krzystof/possible-states#readme",
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "eslint": "^4.19.1",
     "eslint-config-standard": "^11.0.0",
