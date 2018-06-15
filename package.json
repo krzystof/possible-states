@@ -4,7 +4,7 @@
   "description": "A cleaner way to manage states in user interfaces",
   "main": "lib/index.js",
   "scripts": {
-    "test": "yarn jest --watch",
+    "test": "yarn jest",
     "lint": "yarn eslint lib/ test/"
   },
   "repository": {
