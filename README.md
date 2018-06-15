@@ -2,6 +2,8 @@
 
 > A tiny library to deal with states, destroy booleans and useless data
 
+[![Build Status](https://travis-ci.org/krzystof/possible-states.svg?branch=master)](https://travis-ci.org/krzystof/possible-states)
+
 
 ## Todos
 - add a vuejs wrapper
