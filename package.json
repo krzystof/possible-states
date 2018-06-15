@@ -1,6 +1,6 @@
 {
   "name": "possible-states",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A cleaner way to manage states in user interfaces",
   "main": "dist/index.js",
   "scripts": {
