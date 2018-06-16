@@ -71,7 +71,7 @@ Create an object that holds the logic for state transition.
 
 The transition functions `toOk` and `toError` are defined automatically.
 
-```
+```js
 import PossibleStates from 'possible-states'
 
 // the default value is the first argument we passed to this function:
@@ -134,7 +134,7 @@ If we are only interested in a couple clauses, use `_` as a catch all clause:
 ```js
 users.caseOf({
   success: () => <UsersList />,
-  _: () => <Whatever />,
+  _      : () => <Whatever />,
 })
 ```
 
@@ -153,11 +153,11 @@ state = {
 }
 
 // updating the UI state
-this.setState(({ ui }) => ({ ui: ui.toOk({whatever: 'goes here'}) }))
+this.setState(({ ui }) => ({ ui: ui.toOk({result: 'goes here'}) }))
 
 this.state.ui.whenOk((data) => (
   <div>
-    {data.whatever} // <-- 'goes here'
+    {data.result} // <-- 'goes here'
   </div>
 ))
 
@@ -165,7 +165,7 @@ this.state.ui.whenOk((data) => (
 
 this.state.ui.caseOf({
   ok: data => <div>data.whatever</div>  // <-- only the ok clause will receive the data as an argument
-  _: () => <div>nothing</div>
+  _ : () => <div>nothing</div>
 })
 ```
 
