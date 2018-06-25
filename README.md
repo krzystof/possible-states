@@ -184,7 +184,7 @@ this.state.ui.caseOf({
 **If you are into Vue**, you can use 2 components to achieve the same result in templates.
 
 ```js
-import {When, CaseOf} from '../lib'
+import {When, CaseOf} from 'possible-states'
 ```
 
 **<When/>**
@@ -218,7 +218,7 @@ Use **named slot** named after the state they are matching.
 ```vue
 <template>
   <div>
-    <CaseOf :ui="ui">
+    <CaseOf :state="ui">
       <div slot="yes">yeah</div>
       <div slot="no">nope</div>
     </CaseOf>
@@ -235,7 +235,7 @@ Pass data using **scoped slots**. If we had `yes<yeah>`:
 ```vue
 <template>
   <div>
-    <CaseOf :ui="ui">
+    <CaseOf :state="ui">
       <div slot="yes" slot-scope="props">{{ props.yeah }}</div>
       <div slot="no">nope</div>
     </CaseOf>
