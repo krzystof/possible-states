@@ -7,7 +7,7 @@ describe('<CaseOf/>', () => {
     const wrapper = mount({
       template: `
         <div>
-          <CaseOf :ui="ui">
+          <CaseOf :state="ui">
             <div slot="yes">yeah</div>
             <div slot="no">nope</div>
           </CaseOf>
@@ -31,7 +31,7 @@ describe('<CaseOf/>', () => {
     const wrapper = mount({
       template: `
         <div>
-          <CaseOf :ui="ui">
+          <CaseOf :state="ui">
             <div slot="no">nope</div>
             <div slot="yes" slot-scope="{text}">{{text}}</div>
           </CaseOf>
@@ -54,7 +54,7 @@ describe('<CaseOf/>', () => {
     const wrapper = mount({
       template: `
         <div>
-          <CaseOf :ui="ui">
+          <CaseOf :state="ui">
             <div>fallback here</div>
             <div slot="no">nope</div>
           </CaseOf>
