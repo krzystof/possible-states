@@ -111,6 +111,14 @@ describe('when___() dynamic functions', () => {
 
     expect(result).toEqual({example: 'so long!'})
   })
+
+  test('also accept a value', () => {
+    ui = PossibleStates('a', 'b')
+
+    const result = ui.whenA('static_result')
+
+    expect(result).toBe('static_result')
+  })
 })
 
 describe('caseOf()', () => {
@@ -167,5 +175,14 @@ describe('caseOf()', () => {
 
   test('throws error if not all cases are covered', () => {
     expect(() => ui.caseOf({a: () => {}})).toThrow(Error)
+  })
+
+  test('can accept static values', () => {
+    const result = ui.caseOf({
+      a: 'something',
+      _: 'nope',
+    })
+
+    expect(result).toBe('something')
   })
 })

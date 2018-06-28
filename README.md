@@ -94,6 +94,23 @@ In the previous case, we would also have a `whenOk` and `whenError`
 function that would accept a callback and run it whenever the state
 matches.
 
+:tada: **Released in version 1.2** `when___` and `caseOf` both accept
+now an object or a callback.
+
+```jsx
+// That means that instead of this:
+state.ui.whenLoading(() => <Spinner/>)
+
+// You can do this directly:
+state.ui.whenLoading(<Spinner/>)
+
+// And the same for caseOf:
+state.ui.caseOf({
+  loading: <Spinner/>,
+  _: 'Text works also',
+})
+```
+
 Use it to clean up if-else statements that are getting out of hand:
 
 ```jsx
@@ -255,8 +272,6 @@ Submit a PR from a branch named `fix-xxxxxxx` or `feature-xxxxxx`. Not from `mas
 Make sure `yarn test` and `yarn lint` pass.
 
 Write meaningful commit messages. If needed, squash commits before opening your PR.
-
-Don't hesitate to contact me for anything!
 
 
 ## License
