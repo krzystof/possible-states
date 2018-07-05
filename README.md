@@ -90,6 +90,20 @@ is called, a new object gets created.
 
 Clean up logic in jsx with the **when** function.
 
+:tada: **Release in 1.3** `not__` helpers functions execute when the
+state is not the one specified.
+
+```jsx
+state.ui.notLoading(<Whatever/>)
+```
+
+These function are not only helpful for controlling markup, you can
+control anything with it. Here is an example with CSS classes:
+
+```jsx
+<div className={state.ui.whenLoading('background-grey') || 'background-white'}/>
+```
+
 In the previous case, we would also have a `whenOk` and `whenError`
 function that would accept a callback and run it whenever the state
 matches.
