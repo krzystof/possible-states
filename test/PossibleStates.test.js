@@ -121,6 +121,52 @@ describe('when___() dynamic functions', () => {
   })
 })
 
+describe('not___() dynamic functions', () => {
+  let ui
+
+  beforeEach(() => {
+    ui = PossibleStates('a', 'b', 'c')
+  })
+
+  test('are defined for each possible states', () => {
+    expect(ui.notA).toBeInstanceOf(Function)
+    expect(ui.notB).toBeInstanceOf(Function)
+    expect(ui.notC).toBeInstanceOf(Function)
+  })
+
+  test('runs the callback when it does not match', () => {
+    const mock = jest.fn()
+
+    ui.notA(() => mock('a'))
+    expect(mock).not.toHaveBeenCalled()
+    ui.notB(() => mock('b'))
+    expect(mock).toHaveBeenNthCalledWith(1, 'b')
+    ui.notC(() => mock('c'))
+    expect(mock).toHaveBeenNthCalledWith(2, 'c')
+  })
+
+  test('returns the result of the callback', () => {
+    expect(ui.notA(() => 'not this')).toBeNull()
+    expect(ui.notB(() => 'but this')).toBe('but this')
+  })
+
+  test('does not receive enclosed arguments', () => {
+    ui = PossibleStates('a', 'b<example>', 'c')
+
+    const result = ui.toB('so long!').notA(args => args)
+
+    expect(result).not.toBeDefined()
+  })
+
+  test('also accept a value', () => {
+    ui = PossibleStates('a', 'b')
+
+    const result = ui.notB('static_result')
+
+    expect(result).toBe('static_result')
+  })
+})
+
 describe('caseOf()', () => {
   let ui
 
