@@ -191,11 +191,13 @@ state.
 this.state.ui = PossibleStates('wait', 'ok<result>', 'error<reason>')
 
 // then whenever needed, use transition. Use the function form of setState.
-this.setState(state => ({ui: state.ui.toOk({result: 'goes here'})})
+this.setState(state => ({ui: state.ui.toOk('Your result goes here')})
 
-// update the UI state
-this.setState(state => ({ ui: state.ui.toOk({result: 'goes here'}) }))
-this.state.ui = this.state.ui.toOk({result: 'goes here'})
+// Update the UI state on React
+this.setState(state => ({ ui: state.ui.toOk('Your result goes here') }))
+
+// Update the UI state on Vue
+this.state.ui = this.state.ui.toOk('Your result goes here')
 
 this.state.ui.whenOk((data) => (
   <div>
